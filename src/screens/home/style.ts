@@ -112,11 +112,14 @@ const styles = StyleSheet.create({
   },
   username: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     marginBottom: 10,
   },
   fontsize16: {
     fontSize: 16,
+  },
+  fontweight:{
+    fontWeight:'900',
   },
   container: {flex: 1, padding: 10, justifyContent: 'center'},
   head: {height: 44, backgroundColor: '#959c97'},

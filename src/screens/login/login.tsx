@@ -35,6 +35,12 @@ function loginScreen({navigation}) {
   function onPress(): void {
     console.log('done');
   }
+  function goToReg() {
+    navigation.navigate('Register');
+  }
+  function goToHome() {
+    navigation.navigate('Home');
+  }
   return (
     <>
       <SafeAreaView style={backgroundStyle}>
@@ -71,11 +77,11 @@ function loginScreen({navigation}) {
             <Icone name="lock" size={30} />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity style={styles.button} onPress={goToHome}>
           <Text style={styles.regText}>Sign in</Text>
         </TouchableOpacity>
         <View style={styles.bottomSign}>
-          <TouchableOpacity onPress={onPress}>
+          <TouchableOpacity onPress={goToReg}>
             <Text style={styles.sinup}>Sign up</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={onPress}>
@@ -86,4 +92,4 @@ function loginScreen({navigation}) {
     </>
   );
 }
-export default loginScreen
+export default loginScreen;

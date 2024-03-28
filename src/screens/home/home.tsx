@@ -20,7 +20,7 @@ import Icone3 from 'react-native-vector-icons/Ionicons';
 import Icone from 'react-native-vector-icons/MaterialIcons';
 import {Table, Row, Rows} from 'react-native-table-component';
 const tableData = {
-  tableHead: ['Pass mark', 'The Mark Obtain', 'Subjects'],
+  tableHead: ['Pass mark', 'The Mark Obtained', 'Subjects'],
   tableData: [
     ['100', '120', 'Math'],
     ['50', '70', 'Physics'],
@@ -28,7 +28,8 @@ const tableData = {
     ['150', '170', 'Arabic'],
   ],
 };
-function Homescreen() {
+
+function Homescreen({navigation}) {
   const [data, setData] = useState(tableData);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -45,6 +46,9 @@ function Homescreen() {
   function onPress(): void {
     console.log('done');
   }
+  function logot() {
+    navigation.navigate('Login');
+  }
   return (
     <>
       <SafeAreaView style={backgroundStyle}>
@@ -57,7 +61,6 @@ function Homescreen() {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <View style={styles.TitleContainer}>
-        
           <Icone3 name="home" size={100} />
 
           <Text style={styles.sectionTitle}>Home Page</Text>
@@ -65,14 +68,14 @@ function Homescreen() {
         <View style={styles.sectionTextAreaContainer}>
           <View style={[styles.paddingH15]}>
             <View style={styles.username}>
-              <Text style={styles.fontsize16}>AllamAlawneh</Text>
-              <Text style={styles.fontsize16}>Username</Text>
+              <Text style={[styles.fontsize16]}>AllamAlawneh</Text>
+              <Text style={[styles.fontsize16,styles.fontweight]}>Username : </Text>
             </View>
           </View>
           <View style={[styles.paddingH15]}>
             <View style={styles.username}>
               <Text style={styles.fontsize16}>allam.alawneh@gmail.com</Text>
-              <Text style={styles.fontsize16}>E-Mail</Text>
+              <Text style={[styles.fontsize16,styles.fontweight]}>E-Mail : </Text>
             </View>
           </View>
         </View>
@@ -86,10 +89,10 @@ function Homescreen() {
             />
             <Rows data={data.tableData} textStyle={styles.text} />
           </Table>
-          <TouchableOpacity style={styles.flexDirec}>
+          <TouchableOpacity onPress={logot} style={styles.flexDirec}>
             <Icone style={styles.logout} name="logout" size={25} />
             <Text style={{fontSize: 18}}>Logout</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </>
