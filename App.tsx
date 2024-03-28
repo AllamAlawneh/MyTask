@@ -4,7 +4,11 @@
  * @format
  */
 import React, {useState} from 'react';
-
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Homescreen from './src/screens/home/home';
+import loginScreen from './src/screens/login/login';
+import registerScreen from './src/screens/register/register';
 import {
   SafeAreaView,
   ScrollView,
@@ -172,86 +176,64 @@ import {Table, Row, Rows} from 'react-native-table-component';
 //     </>
 //   );
 // }
-const tableData = {
-  tableHead: ['Pass mark', 'The Mark Obtain', 'Subjects'],
-  tableData: [
-    ['100', '120', 'Math'],
-    ['50', '70', 'Physics'],
-    ['50', '60', 'Cs'],
-    ['150', '170', 'Arabic'],
-  ],
-};
+
+// Define screens for the authentication stack
+
+function AuthStackScreen() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        name="Login"
+        component={loginScreen}
+        options={{headerShown: false}}
+      />
+      <AuthStack.Screen
+        name="Register"
+        component={registerScreen}
+        options={{headerShown: false}}
+      />
+      <AppStack.Screen
+        name="Home"
+        component={Homescreen}
+        options={{headerShown: false}}
+      />
+    </AuthStack.Navigator>
+  );
+}
+
+// Define screens for the app stack
+function AppStackScreen() {
+  return (
+    <AppStack.Navigator>
+      <AppStack.Screen
+        name="Home"
+        component={Homescreen}
+        options={{headerShown: false}}
+      />
+    </AppStack.Navigator>
+  );
+}
+const AuthStack = createStackNavigator();
+const AppStack = createStackNavigator();
 function App() {
-  const [data, setData] = useState(tableData);
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  function onPress(): void {
-    console.log('done');
-  }
   return (
     <>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-      </SafeAreaView>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.TitleContainer}>
-        
-          <Icone3 name="home" size={100} />
-
-          <Text style={styles.sectionTitle}>Home Page</Text>
-        </View>
-        <View style={styles.sectionTextAreaContainer}>
-          <View style={[styles.paddingH15]}>
-            <View style={styles.username}>
-              <Text style={styles.fontsize16}>AllamAlawneh</Text>
-              <Text style={styles.fontsize16}>Username</Text>
-            </View>
-          </View>
-          <View style={[styles.paddingH15]}>
-            <View style={styles.username}>
-              <Text style={styles.fontsize16}>allam.alawneh@gmail.com</Text>
-              <Text style={styles.fontsize16}>E-Mail</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.container}>
-          <Table borderStyle={{borderWidth: 3, borderColor: '#959c97'}}>
-            <Row
-              data={data.tableHead}
-              style={styles.head}
-              textStyle={styles.headText}
-            />
-            <Rows data={data.tableData} textStyle={styles.text} />
-          </Table>
-          <TouchableOpacity style={styles.flexDirec}>
-            <Icone style={styles.logout} name="logout" size={25} />
-            <Text style={{fontSize: 18}}>Logout</Text>
-            </TouchableOpacity>
-        </View>
-      </ScrollView>
+      <NavigationContainer>
+        <AuthStack.Navigator initialRouteName="Auth">
+          <AuthStack.Screen
+            name="Auth"
+            component={AuthStackScreen}
+            options={{headerShown: false}}
+          />
+          <AppStack.Screen
+            name="App"
+            component={AppStackScreen}
+            options={{headerShown: false}}
+          />
+        </AuthStack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
-// <NavigationContainer>
-//   <Stack.Navigator>
-//     <Stack.Screen name="Login" component={loginScreen} />
-//     <Stack.Screen name="Sign Up" component={registerScreen} />
-//   </Stack.Navigator>
-// </NavigationContainer>
+
 export default App;
